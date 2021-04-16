@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import './styles.css';
 import CountryList from "./components/CountryList";
-import axios from "axios";
+
 import Country from "./components/Country";
 import Search from "./components/Search"
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 function App() {
-
   
-  const [countries, setCountries]=useState([]);
-  const [search, setSearch] = useState("");
-  const handleClick = (e) => {
-    setSearch(e.target.value);
-  };
+  
+  // const [countries, setCountries]=useState([]);
+  // const [search, setSearch] = useState("");
+  // const handleClick = (e) => {
+  //   setSearch(e.target.value);
+  // };
 
-  useEffect(()=>{
-    axios.get("https://restcountries.eu/rest/v2/all")
-    .then(response=>{setCountries(response.data)})
-    .catch((error)=>console.log(error))
-  },[])
+  // useEffect(()=>{
+  //   axios.get("https://restcountries.eu/rest/v2/all")
+  //   .then(response=>{setCountries(response.data)})
+  //   .catch((error)=>console.log(error))
+  // },[])
 
   return (
     <Router>
@@ -34,25 +34,10 @@ function App() {
         React Dersleri
       </h1>
       
-     
-            <Route path="/" exact render={()=>(
-              
-              <Search search={search} onSearchClick={handleClick}/>
-            )}/>
-  
-            <Route path="/" exact render={()=>(
-              
-              <CountryList search={search} countries={countries}/>
-            )}/>
-            
-            
-            <Route path="/country/:code" render={()=>(
-              <Country countries={countries}/>
-            )} />
-        
-    
-      
-     
+            <Search/>
+            <Route path="/" exact component={CountryList}/>
+            <Route path="/country/:code" exact component={Country}/>
+           
     </div>
 
 
